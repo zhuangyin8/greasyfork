@@ -2,7 +2,7 @@
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
 // @author           @zhuangyin8
-// @version          2024.08.13
+// @version          2024.08.14
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -41,9 +41,8 @@
 			const link = `magnet:?xt=urn:btih:${element
 				.querySelector(hash)
 				.href.match(reg)[0]
-				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${
-				element.querySelector(size).innerText
-			}🔞Date=${element.querySelector(date).innerText}`;
+				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText
+				}🔞Date=${element.querySelector(date).innerText}`;
 			element.querySelector(magnet).textContent = link;
 			addElement(
 				`button`,
@@ -56,7 +55,7 @@
 						e.target.textContent = `已复制第${index + 1}个磁力链接`;
 						setTimeout(() => {
 							e.target.textContent = `点击复制第${index + 1}个磁力链接`;
-						}, 3000);
+						}, 10000);
 						e.target.style.cssText =
 							"color: red; background-color: yellow; height: 100%";
 						// e.target.setAttribute(
@@ -124,12 +123,12 @@
 		default:
 	}
 	/*GM_addStyle(`thead,.data-list .hidden-xs,tr .text-center,thead + tbody tr td:not(:nth-child(2)){ display: none !important;}
-    .input-group {width:100%}
-    .table-striped>tbody>tr:nth-of-type(odd) {background-color: rgb(213, 217, 237);}
-    .torrent-list > tbody > tr > td{white-space: normal !important;}
-    #article {max-width: 120ex !important;}
-    .torrent_name {width: 980px !important;}
-    body > center > div {max-width: 1500px !important;}`);*/
+		.input-group {width:100%}
+		.table-striped>tbody>tr:nth-of-type(odd) {background-color: rgb(213, 217, 237);}
+		.torrent-list > tbody > tr > td{white-space: normal !important;}
+		#article {max-width: 120ex !important;}
+		.torrent_name {width: 980px !important;}
+		body > center > div {max-width: 1500px !important;}`);*/
 	GM_addStyle(`.torrent-list > tbody > tr > td {white-space: normal !important;}
     .tags-box { width: 100vw;position: fixed; top: 40px;}
     .data-list{ width: 100vw;position: absolute;top: 160px;}

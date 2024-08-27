@@ -1341,8 +1341,8 @@
                 ],
                 [
                 ],
-                    "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",
-                    "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
+                "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",
+                "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
                 [
                     "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
                     "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js",
