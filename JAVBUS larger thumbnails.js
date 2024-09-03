@@ -3,7 +3,7 @@
 // @name:zh-CN   ⏰JAVBUS封面大图
 // @namespace    https://github.com/zhuangyin8
 // @homepage     https://greasyfork.org/zh-CN/scripts/504970
-// @version      2024-08-26
+// @version      2024-09-03
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
@@ -60,6 +60,7 @@
 // @downloadURL https://update.greasyfork.org/scripts/504970
 // @updateURL https://update.greasyfork.org/scripts/504970
 // ==/UserScript==
+
 (function () {
     "use strict";
     let statusDefault = {
@@ -314,7 +315,7 @@
             fullTitle: function () {
                 $("#grid-b a[name='av-title']").toggleClass("titleNowrap");
             },
-            avInfo: function () { },
+            avInfo: function () {},
             menutoTop: function () {
                 location.reload();
             },
@@ -375,9 +376,9 @@
                 .find("input")
                 .eq(0)
                 .click(function () {
-                    Status.set(fName, this.checked);
-                    me.onChange[fName]();
-                });
+                Status.set(fName, this.checked);
+                me.onChange[fName]();
+            });
             return $checkbox;
         }
         creatRange(fName, name, value, max) {
@@ -428,18 +429,18 @@
             $(elem).addClass("span-loading");
             Promise.resolve()
                 .then(() => {
-                    switch (currentWeb) {
-                        case "javbus": {
-                            return getMagnet4JavBus(href, tagName);
-                        }
-                        case "javdb": {
-                            return getMagnet4JavDB(href, tagName, itemID, avid);
-                        }
+                switch (currentWeb) {
+                    case "javbus": {
+                        return getMagnet4JavBus(href, tagName);
                     }
-                })
+                    case "javdb": {
+                        return getMagnet4JavDB(href, tagName, itemID, avid);
+                    }
+                }
+            })
                 .then((dom) => {
-                    myModal.append(dom).show();
-                })
+                myModal.append(dom).show();
+            })
                 .catch((err) => alert(err))
                 .then(() => $(elem).removeClass("span-loading"));
         }
@@ -452,14 +453,14 @@
         let info = $(`<div class="pop-up-tag" name="${tagName}"></div>`);
         if (Status.get("avInfo")) {
             let actors = $doc
-                .find("div.video-meta-panel .panel-block")
-                .toArray()
-                .find((el) => $(el).find("a[href^='/actors/']").length > 0); //av演员
+            .find("div.video-meta-panel .panel-block")
+            .toArray()
+            .find((el) => $(el).find("a[href^='/actors/']").length > 0); //av演员
             $(actors).find("a").attr("target", "_blank");
             let preview_images = $doc
-                .find(".columns")
-                .toArray()
-                .find((el) => $(el).find("div.tile-images.preview-images").length > 0);
+            .find(".columns")
+            .toArray()
+            .find((el) => $(el).find("div.tile-images.preview-images").length > 0);
             //console.log(preview_images);
             let $preview_images = $(preview_images);
             $preview_images
@@ -474,13 +475,13 @@
                 const qian = arr[0].toLowerCase();
                 const hou = arr[1];
                 let fanhao, url;
-                if (["aed", "ako", "anb", "apaa", "apns", "aqula", "aran", "atid", "awd", "dass", "ekdv", "erofc", "fbos", "fjin", "hkd", "hoks", "instc", "jsop", "lulu", "mide", "midv", "omhd", "pred", "snis", "sivr", "sone", "sqte", "ssni"].includes(qian) || (qian == "vrkm" && hou > 167 && hou < 1000) || (qian == "savr" && hou > 105) || (qian == "crvr" && hou > 239)) {
+              	if (["aed","ako","anb","apaa","apns","aquco","aqula","aran","atid","awd","dass","ekdv","erofc","fbos","fjin","hkd","hoks","instc","jsop","lulu","mide","midv","omhd","pred","snis","sivr","sone","sqte","ssni","urvrsp"].includes(qian)||(qian=="vrkm"&&hou>167&&hou<1000)||(qian=="savr"&&hou>105)||(qian=="crvr"&&hou>239)) {
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian == "vrkm" && hou > 999) {
+                } else if (qian=="vrkm"&&hou>999) {
                     fanhao = `${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["aege", "akdl", "bkynb", "dandy", "dldss", "drpt", "dvdes", "fadss", "fcdss", "fsdss", "fset", "ftht", "ftk", "ftkd", "gar", "havd", "hbad", "hunta", "huntb", "huntc", "ienf", "ienfh", "kmhr", "kmhrs", "mane", "mfth", "mist", "mogi", "msfh", "msfh", "mtall", "nhdta", "nhdtb", "nhvr", "ntr", "nyh", "piyo", "rct", "rctd", "setm", "sdab", "sdam", "sdde", "sdjs", "sdmf", "sdmm", "sdmu", "sdmua", "sdnm", "sdnt", "sdth", "senn", "seven", "sgki", "shh", "shn", "silkc", "sply", "star", "stars", "start", "stko", "sun", "suwk", "svdvd", "svmgm", "sw", "wawa", "wo",].includes(qian)) {
+                } else if (["aege","akdl","bkynb","dandy","dldss","drpt","dvdes","fadss","fcdss","fsdss","fset","ftht","ftk","ftkd","gar","havd","hbad","hunta","huntb","huntc","ienf","ienfh","kmhr","kmhrs","mane","mfth","mist","mogi","msfh","msfh","mtall","nhdta","nhdtb","nhvr","ntr","nyh","piyo","rct","rctd","setm","sdab","sdam","sdde","sdjs","sdmf","sdmm","sdmu","sdmua","sdnm","sdnt","sdth","senn","seven","sgki","shh","shn","silkc","sply","star","stars","start","stko","sun","suwk","svdvd","svmgm","sw","wawa","wo",].includes(qian)) {
                     fanhao = `1${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["gvg"].includes(qian)) {
@@ -489,13 +490,16 @@
                 } else if (["dsvr"].includes(qian)) {
                     fanhao = `13${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
+                } else if (["tmavr"].includes(qian)) {
+                    fanhao = `55${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["hez"].includes(qian)) {
                     fanhao = `59${qian}${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tpvr", "kmvr", "kbvr", "averv"].includes(qian) || (qian == "vrkm" && hou < 168)) {
+                } else if (["tpvr","kmvr","kbvr","averv"].includes(qian)||(qian=="vrkm"&&hou<168)) {
                     fanhao = `84${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["abf", "abp", "abw", "bgn", "docp", "fir", "gets", "giro", "gnab",/*"good",*/"har", "jbs", "kbi", "mas", "mct", "npv", "ppt", "rdt", "sga", "tem", "wps",].includes(qian)) {
+                } else if (["abf","abp","abw","bgn","docp","fir","gets","giro","gnab",/*"good",*/"har","jbs","kbi","mas","mct","npv","ppt","rdt","sga","tem","wps",].includes(qian)) {
                     fanhao = `118${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["hodv"].includes(qian)) {
@@ -513,7 +517,7 @@
                 } else if (["nsps"].includes(qian)) {
                     fanhao = `h_102${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["ambi", "hdka"].includes(qian)) {
+                } else if (["ambi","hdka",'nacr'].includes(qian)) {
                     fanhao = `h_237${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["tama"].includes(qian)) {
@@ -525,6 +529,9 @@
                 } else if (["fone"].includes(qian)) {
                     fanhao = `h_491${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
+                } else if (['san'].includes(qian)) {
+                    fanhao = `h_796${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["gigl"].includes(qian)) {
                     fanhao = `h_860${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
@@ -534,10 +541,10 @@
                 } else if (["good"].includes(qian)) {
                     fanhao = `h_1133${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian == "crvr" && hou < 240) {
+                } else if (qian=="crvr"&&hou<240) {
                     fanhao = `h_1155${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian == "savr" && hou < 106) {
+                } else if (qian=="savr"&&hou<106) {
                     fanhao = `h_1241${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["kiwvr"].includes(qian)) {
@@ -553,7 +560,7 @@
                     fanhao = `h_1350${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                     //https://pics.dmm.co.jp/digital/video/h_1472instv00587/h_1472instv00587jp-1.jpg
-                } else if (["fanh", ""].includes(qian)) {
+                } else if (["fanh",""].includes(qian)) {
                     fanhao = `h_1472${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (["devr"].includes(qian)) {
@@ -677,12 +684,12 @@
             $(elem).addClass("span-loading");
             getAvImg(avid, tagName)
                 .then(($img) => {
-                    myModal.append($img).show();
-                })
+                myModal.append($img).show();
+            })
                 .catch((err) => err && showAlert(err))
                 .then(() => {
-                    $(elem).removeClass("span-loading");
-                });
+                $(elem).removeClass("span-loading");
+            });
         }
     }
     const getRequest = (url, params) => {
@@ -732,11 +739,11 @@
             return Promise.reject(lang.getAvImg_norespond);
         }
         let resultList = $($.parseHTML(r.responseText))
-            .find(blogjavSelector)
-            .toArray()
-            .map((v) => {
-                return { title: v.innerHTML, href: v.href };
-            });
+        .find(blogjavSelector)
+        .toArray()
+        .map((v) => {
+            return { title: v.innerHTML, href: v.href };
+        });
         if (resultList.length == 0) {
             return Promise.reject(lang.getAvImg_none);
         }
@@ -753,59 +760,59 @@
                 $(`<div name="${tagName}" class="pop-up-tag" style="min-height:${$(window).height()}px;">
                         <ul style="${resultList.length == 1 ? "display:none" : ""}">${resultList.map((v, i) => `<li class="imgResult-li" index=${i} data="${v.href}">${v.title}</li>`).join("")}</ul>
                         <span class="download-icon" >${download_Svg}</span>${resultList.map((v, i) => `<img index=${i}  name="screenshot" style="display:none;width:100%" />`).join("")}</div>`);
-            $img.find("li.imgResult-li").click(function () {
-                if ($(this).hasClass("imgResult-loading")) {
-                    return;
-                }
-                let index_to = $(this).attr("index");
-                let index_from = $img.find("img:visible").attr(`index`);
-                if (index_to != index_from) {
-                    $img
-                        .find("li.imgResult-li.imgResult-Current")
-                        .removeClass("imgResult-Current");
-                    $(this).addClass(`imgResult-loading`).addClass("imgResult-Current");
-                    $img.find("img").hide();
-                    let $img_to = $img.find(`img[index=${index_to}]`);
-                    $img_to.show();
-                    Promise.resolve()
-                        .then(() => {
-                            if ($img_to.attr(`src`)) {
-                                return true;
-                            } else {
-                                return me.getScreenshotUrl($(this).attr("data")).then((r) => {
-                                    $img_to.attr(`src`, r);
-                                });
-                            }
-                        })
-                        .catch((err) => {
-                            showAlert(err);
-                        })
-                        .then((r) => {
-                            $(this).removeClass(`imgResult-loading`);
+        $img.find("li.imgResult-li").click(function () {
+            if ($(this).hasClass("imgResult-loading")) {
+                return;
+            }
+            let index_to = $(this).attr("index");
+            let index_from = $img.find("img:visible").attr(`index`);
+            if (index_to != index_from) {
+                $img
+                    .find("li.imgResult-li.imgResult-Current")
+                    .removeClass("imgResult-Current");
+                $(this).addClass(`imgResult-loading`).addClass("imgResult-Current");
+                $img.find("img").hide();
+                let $img_to = $img.find(`img[index=${index_to}]`);
+                $img_to.show();
+                Promise.resolve()
+                    .then(() => {
+                    if ($img_to.attr(`src`)) {
+                        return true;
+                    } else {
+                        return me.getScreenshotUrl($(this).attr("data")).then((r) => {
+                            $img_to.attr(`src`, r);
                         });
-                }
-            });
-            $img.find("span.download-icon").click(function () {
-                let url = $img.find("img:visible").attr(`src`);
-                let name = `${avid || "screenshot"}.jpg`;
-                downloadImg(url, name, this);
-            });
-            return $img;
-        }
-        async getScreenshotUrl(imgUrl) {
-            const result = await getRequest(imgUrl);
-            let img_src =
-                /<noscript>.*src="(.*pixhost.to\/thumbs[\S]+)".*<\/noscript>/.exec(
-                    result.responseText,
-                );
-            let src = img_src[1]
-                .replace("thumbs", "images")
-                .replace("//t", "//img")
-                .replace('"', "");
-            //console.log(src);
-            return src;
-        }
+                    }
+                })
+                    .catch((err) => {
+                    showAlert(err);
+                })
+                    .then((r) => {
+                    $(this).removeClass(`imgResult-loading`);
+                });
+            }
+        });
+        $img.find("span.download-icon").click(function () {
+            let url = $img.find("img:visible").attr(`src`);
+            let name = `${avid || "screenshot"}.jpg`;
+            downloadImg(url, name, this);
+        });
+        return $img;
     }
+      async getScreenshotUrl(imgUrl) {
+          const result = await getRequest(imgUrl);
+          let img_src =
+              /<noscript>.*src="(.*pixhost.to\/thumbs[\S]+)".*<\/noscript>/.exec(
+                  result.responseText,
+              );
+          let src = img_src[1]
+          .replace("thumbs", "images")
+          .replace("//t", "//img")
+          .replace('"', "");
+          //console.log(src);
+          return src;
+      }
+  }
 
     let lazyLoad;
     let scroller;
@@ -828,7 +835,7 @@
     let ConstCode = {
         javbus: {
             domainReg:
-                /(javbus|busjav|busfan|fanbus|buscdn|cdnbus|dmmsee|seedmm|busdmm|dmmbus|javsee|seejav)\./i,
+            /(javbus|busjav|busfan|fanbus|buscdn|cdnbus|dmmsee|seedmm|busdmm|dmmbus|javsee|seejav)\./i,
             excludePages: [
                 "/actresses",
                 "mdl=favor&sort=1",
@@ -894,118 +901,119 @@
                 [data-theme=dark] #grid-b  .box-b{background-color:#222;}
                 [data-theme=dark] .alert-zdy {color: black;background-color: rgb(255 255 255 / 90%);}
                 #myModal #modal-div article.message {margin-bottom: 0}`);
-            },
-            maxWidth: 150, //javdb允许的最大宽度为150%，其他网站默认最大宽度为100%
-            getAvItem: function (elem) {
-                var href = elem.find("a")[0].href;
-                var src = elem.find("div.cover>img").eq(0).attr("src");
-                var title = elem.find("a")[0].title;
-                var AVID = elem.find("div.video-title>strong").eq(0).text();
-                var date = elem.find("div.meta").eq(0).text();
-                var score = elem.find("div.score").html();
-                var itemTag = elem.find(".tags.has-addons").html();
-                return { AVID, href, src, title, date, itemTag, score };
-            },
-            //init: function(){ if(location.href.includes("/users/")){ this.widthSelector="div.section";} }
+      },
+        maxWidth: 150, //javdb允许的最大宽度为150%，其他网站默认最大宽度为100%
+        getAvItem: function (elem) {
+            var href = elem.find("a")[0].href;
+            var src = elem.find("div.cover>img").eq(0).attr("src");
+            var title = elem.find("a")[0].title;
+            var AVID = elem.find("div.video-title>strong").eq(0).text();
+            var date = elem.find("div.meta").eq(0).text();
+            var score = elem.find("div.score").html();
+            var itemTag = elem.find(".tags.has-addons").html();
+            return { AVID, href, src, title, date, itemTag, score };
         },
-        avmoo: {
-            domainReg: /avmoo\./i,
-            excludePages: ["/actresses"],
-            gridSelector: "div#waterfall",
-            itemSelector: "div#waterfall div.item",
-            widthSelector: "#grid-b",
-            pageNext: 'a[name="nextpage"]',
-            pageSelector: ".pagination",
-            getAvItem: function (elem) {
-                var photoDiv = elem.find("div.photo-frame")[0];
-                var href = elem.find("a")[0].href;
-                var img = $(photoDiv).children("img")[0];
-                var src = img.src.replace(/ps.jpg/, "pl.jpg");
-                var title = img.title;
-                var AVID = elem.find("date").eq(0).text();
-                var date = elem.find("date").eq(1).text();
-                var itemTag = "";
-                elem
-                    .find("div.photo-info .btn")
-                    .toArray()
-                    .forEach((x) => (itemTag += x.outerHTML));
-                return { AVID, href, src, title, date, itemTag };
-            },
-        },
-        javlibrary: {
-            domainReg: /javlibrary\./i,
-            gridSelector: "div.videothumblist",
-            itemSelector: "div.videos div.video",
-            widthSelector: "#grid-b",
-            pageNext: "a.page.next",
-            pageSelector: ".page_selector",
-            getAvItem: function (elem) {
-                var href = elem.find("a")[0].href;
-                var src = elem.find("img")[0].src;
-                if (src.indexOf("pixhost") < 0) {
-                    //排除含有pixhost的src，暂时未发现规律
-                    src = src.replace(/ps.jpg/, "pl.jpg");
-                }
-                var title = elem.find("div.title").eq(0).text();
-                var AVID = elem.find("div.id").eq(0).text();
-                return { AVID, href, src, title, date: "", itemTag: "" };
-            },
-            init_Style: function () {
-                GM_addStyle(`${Status.get("menutoTop")
+        //init: function(){ if(location.href.includes("/users/")){ this.widthSelector="div.section";} }
+    },
+      avmoo: {
+          domainReg: /avmoo\./i,
+          excludePages: ["/actresses"],
+          gridSelector: "div#waterfall",
+          itemSelector: "div#waterfall div.item",
+          widthSelector: "#grid-b",
+          pageNext: 'a[name="nextpage"]',
+          pageSelector: ".pagination",
+          getAvItem: function (elem) {
+              var photoDiv = elem.find("div.photo-frame")[0];
+              var href = elem.find("a")[0].href;
+              var img = $(photoDiv).children("img")[0];
+              var src = img.src.replace(/ps.jpg/, "pl.jpg");
+              var title = img.title;
+              var AVID = elem.find("date").eq(0).text();
+              var date = elem.find("date").eq(1).text();
+              var itemTag = "";
+              elem
+                  .find("div.photo-info .btn")
+                  .toArray()
+                  .forEach((x) => (itemTag += x.outerHTML));
+              return { AVID, href, src, title, date, itemTag };
+          },
+      },
+      javlibrary: {
+          domainReg: /javlibrary\./i,
+          gridSelector: "div.videothumblist",
+          itemSelector: "div.videos div.video",
+          widthSelector: "#grid-b",
+          pageNext: "a.page.next",
+          pageSelector: ".page_selector",
+          getAvItem: function (elem) {
+              var href = elem.find("a")[0].href;
+              var src = elem.find("img")[0].src;
+              if (src.indexOf("pixhost") < 0) {
+                  //排除含有pixhost的src，暂时未发现规律
+                  src = src.replace(/ps.jpg/, "pl.jpg");
+              }
+              var title = elem.find("div.title").eq(0).text();
+              var AVID = elem.find("div.id").eq(0).text();
+              return { AVID, href, src, title, date: "", itemTag: "" };
+          },
+          init_Style: function () {
+              GM_addStyle(`${
+          Status.get("menutoTop")
                     ? `
                 #leftmenu {width : 100%;float: none;}
                 #leftmenu>table { display : none;}
                 #leftmenu .menul1,#leftmenu .menul1>ul{display: flex;align-items: center;justify-content: center;flex-wrap: wrap;}
                 #leftmenu .menul1{padding: 5px;}
                 #rightcolumn{margin: 0 5px;padding : 10px 5px;}`
-                    : ``
-                    }
+            : ``
+        }
                 #grid-b div{box-sizing: border-box;}`);
-            },
-        },
-    };
+      },
+    },
+  };
 
     /** 用于屏蔽老司机脚本的代码*/
-    function oldDriverBlock() {
-        if (["javbus", "avmoo"].includes(currentWeb)) {
-            //屏蔽老司机脚本,改写id
-            if ($(".masonry").length > 0) {
-                $(".masonry").removeClass("masonry");
-            }
-            let $waterfall = $("#waterfall");
-            if ($waterfall.length) {
-                $waterfall.get(0).id = "waterfall-destroy";
-            }
-            if ($waterfall.find("#waterfall").length) {
-                //javbus首页有2个'waterfall' ID
-                $waterfall.find("#waterfall").get(0).id = "";
-            }
-            //解决 JAV老司机 $pages[0].parentElement.parentElement.id = "waterfall_h";
-            //女优作品界面此代码会把id设置到class=row层
-            if ($("#waterfall_h.row").length > 0) {
-                $("#waterfall_h.row").removeAttr("id");
-            }
-            let $waterfall_h = $("#waterfall_h");
-            if ($waterfall_h.length) {
-                $waterfall_h.get(0).id = "waterfall-destroy";
-            }
-            if (location.pathname.search(/search/) > 0) {
-                //解决"改写id后，搜索页面自动跳转到无码页面"的bug
-                $("body").append('<div id="waterfall"></div>');
-            }
-            currentObj.gridSelector = "#waterfall-destroy";
-        }
-        if (["javlibrary"].includes(currentWeb)) {
-            //屏蔽老司机脚本,改写id
-            let $waterfall = $("div.videothumblist");
-            if ($waterfall.length) {
-                $waterfall.removeClass("videothumblist");
-                $waterfall.find(".videos").removeClass("videos");
-                $waterfall.get(0).id = "waterfall-destroy";
-            }
-            currentObj.gridSelector = "#waterfall-destroy";
-        }
-    }
+    //    function oldDriverBlock() {
+    //        if (["javbus", "avmoo"].includes(currentWeb)) {
+    //            //屏蔽老司机脚本,改写id
+    //            if ($(".masonry").length > 0) {
+    //                $(".masonry").removeClass("masonry");
+    //            }
+    //            let $waterfall = $("#waterfall");
+    //            if ($waterfall.length) {
+    //                $waterfall.get(0).id = "waterfall-destroy";
+    //            }
+    //            if ($waterfall.find("#waterfall").length) {
+    //                //javbus首页有2个'waterfall' ID
+    //                $waterfall.find("#waterfall").get(0).id = "";
+    //            }
+    //            //解决 JAV老司机 $pages[0].parentElement.parentElement.id = "waterfall_h";
+    //            //女优作品界面此代码会把id设置到class=row层
+    //            if ($("#waterfall_h.row").length > 0) {
+    //                $("#waterfall_h.row").removeAttr("id");
+    //            }
+    //            let $waterfall_h = $("#waterfall_h");
+    //            if ($waterfall_h.length) {
+    //                $waterfall_h.get(0).id = "waterfall-destroy";
+    //            }
+    //            if (location.pathname.search(/search/) > 0) {
+    //                //解决"改写id后，搜索页面自动跳转到无码页面"的bug
+    //                $("body").append('<div id="waterfall"></div>');
+    //            }
+    //            currentObj.gridSelector = "#waterfall-destroy";
+    //        }
+    //        if (["javlibrary"].includes(currentWeb)) {
+    //            //屏蔽老司机脚本,改写id
+    //            let $waterfall = $("div.videothumblist");
+    //            if ($waterfall.length) {
+    //                $waterfall.removeClass("videothumblist");
+    //                $waterfall.find(".videos").removeClass("videos");
+    //                $waterfall.get(0).id = "waterfall-destroy";
+    //            }
+    //            currentObj.gridSelector = "#waterfall-destroy";
+    //        }
+    //    }
     class Page {
         constructor() {
             for (let key in ConstCode) {
@@ -1066,7 +1074,17 @@
         }
         static parseItems(elems) {
             let elemsHtml = "";
-            let { imgStyle, getAvItem, toolBar, copyBtn, fullTitle, magnet, magnetTip, downloadTip, pictureTip, } = {
+            let {
+                imgStyle,
+                getAvItem,
+                toolBar,
+                copyBtn,
+                fullTitle,
+                magnet,
+                magnetTip,
+                downloadTip,
+                pictureTip,
+            } = {
                 imgStyle: Status.isHalfImg() ? halfImgCSS : fullImgCSS,
                 getAvItem: currentObj.getAvItem,
                 toolBar: Status.get("toolBar") ? "" : "hidden-b",
@@ -1100,9 +1118,9 @@
                                 hiddenWords.find((v, i) => AvItem.title.includes(v)) ||
                                 hiddenAvids.find(
                                     (v, i) =>
-                                        AvItem.AVID.toUpperCase().startsWith(
-                                            v.toUpperCase() + "-",
-                                        ) || AvItem.AVID.toUpperCase() == v.toUpperCase(),
+                                    AvItem.AVID.toUpperCase().startsWith(
+                                        v.toUpperCase() + "-",
+                                    ) || AvItem.AVID.toUpperCase() == v.toUpperCase(),
                                 ) ||
                                 hiddenCategorys.find((v, i) => AvItem.title.includes(v))
                             ) //todo
@@ -1111,83 +1129,96 @@
                         html = `<div class="item-b">
                                 <div class="box-b">
                                 <div class="cover-b">
-                                    <a  href="${AvItem.href
-                            }" target="_blank"><img style="${imgStyle}" class="lazy minHeight-200"  data-src="${AvItem.src
-                            }" ></a>
+                                    <a  href="${
+                                      AvItem.href
+          }" target="_blank"><img style="${imgStyle}" class="lazy minHeight-200"  data-src="${
+                                      AvItem.src
+          }" ></a>
                                 </div>
                                 <div class="detail-b">
-                                    <a name="av-title" href="${AvItem.href
-                            }" target="_blank" title="${AvItem.title
-                            }" class="${fullTitle}"><span class="tool-span copy-span ${copyBtn}" name="copy">${copy_Svg}</span> <span>${AvItem.AVID
-                            } ${AvItem.title}</span></a>
+                                    <a name="av-title" href="${
+                                      AvItem.href
+          }" target="_blank" title="${
+                                      AvItem.title
+          }" class="${fullTitle}"><span class="tool-span copy-span ${copyBtn}" name="copy">${copy_Svg}</span> <span>${
+                                      AvItem.AVID
+          } ${AvItem.title}</span></a>
                                     <div class="info-bottom">
                                       <div class="info-bottom-one">
-                                          <a  href="${AvItem.href
-                            }" target="_blank"><span class="tool-span copy-span ${copyBtn}" name="copy">${copy_Svg}</span><date name="avid">${AvItem.AVID
-                            }</date>${AvItem.date ? ` / ${AvItem.date}` : ""}</a>
+                                          <a  href="${
+                                            AvItem.href
+          }" target="_blank"><span class="tool-span copy-span ${copyBtn}" name="copy">${copy_Svg}</span><date name="avid">${
+                                            AvItem.AVID
+          }</date>${AvItem.date ? ` / ${AvItem.date}` : ""}</a>
                                       </div>
-                                      ${AvItem.score
-                                ? `<a  href="${AvItem.href}" target="_blank"><div class="score">${AvItem.score}</div></a>`
-                                : ``
-                            }
+                                      ${
+                                        AvItem.score
+                ? `<a  href="${AvItem.href}" target="_blank"><div class="score">${AvItem.score}</div></a>`
+                                          : ``
+                                      }
                                       <div class="info-bottom-two">
-                                        <div class="item-tag">${AvItem.itemTag
-                            }</div>
-                                        <div class="toolbar-b ${toolBar}" item-id="${AvItem.AVID
-                            }${Math.random().toString(16).slice(2)}"  >
-                                        <span name="magnet" class="tool-span  ${magnet}" title="${magnetTip}" AVID="${AvItem.AVID
-                            }" data-href="${AvItem.href}">${magnet_Svg}</span>
-                                        <span name="download" class="tool-span" title="${downloadTip}" src="${AvItem.src
-                            }" src-title="${AvItem.AVID} ${AvItem.title}">${download_Svg}</span>
-                                        <span name="picture" class="tool-span" title="${pictureTip}" AVID="${AvItem.AVID
-                            }" >${picture_Svg}</span>
+                                        <div class="item-tag">${
+                                          AvItem.itemTag
+          }</div>
+                                        <div class="toolbar-b ${toolBar}" item-id="${
+                                          AvItem.AVID
+          }${Math.random().toString(16).slice(2)}"  >
+                                        <span name="magnet" class="tool-span  ${magnet}" title="${magnetTip}" AVID="${
+                                          AvItem.AVID
+          }" data-href="${AvItem.href}">${magnet_Svg}</span>
+                                        <span name="download" class="tool-span" title="${downloadTip}" src="${
+                                          AvItem.src
+          }" src-title="${AvItem.AVID} ${AvItem.title}">${download_Svg}</span>
+                                        <span name="picture" class="tool-span" title="${pictureTip}" AVID="${
+                                          AvItem.AVID
+          }" >${picture_Svg}</span>
                                        </div>
                                      </div>
                                    </div>
                                 </div>
                                 </div>
                             </div>`;
-                    }
-                }
-                elemsHtml = elemsHtml + html;
-            }
-            let $elems = $(elemsHtml);
-            $elems.find("span[name]").click(function () {
-                let name = $(this).attr("name");
-                switch (name) {
-                    case "copy":
-                        GM_setClipboard($(this).next().text());
-                        showAlert(lang.copySuccess);
-                        return false;
-                    case "download":
-                        let [url, name] = [
-                            $(this).attr("src"),
-                            $(this).attr("src-title") + ".jpg",
-                        ];
-                        downloadImg(url, name, this);
-                        break;
-                    case "magnet":
-                        showMagnetTable(
-                            $(this).parent("div").attr("item-id"),
-                            $(this).attr("AVID").replace(/\./g, "-"),
-                            $(this).attr("data-href"),
-                            this,
-                        );
-                        break;
-                    case "picture":
-                        showBigImg(
-                            $(this).parent("div").attr("item-id"),
-                            $(this).attr("AVID"),
-                            this,
-                        );
-                        break;
-                    default:
-                        break;
-                }
-            });
-            return $elems;
+          }
         }
+          elemsHtml = elemsHtml + html;
+      }
+        let $elems = $(elemsHtml);
+        $elems.find("span[name]").click(function () {
+            let name = $(this).attr("name");
+            switch (name) {
+                case "copy":
+                    GM_setClipboard($(this).next().text());
+                    showAlert(lang.copySuccess);
+                    return false;
+                case "download":
+                    let [url, name] = [
+                        $(this).attr("src"),
+                        $(this).attr("src-title") + ".jpg",
+                    ];
+                    downloadImg(url, name, this);
+                    break;
+                case "magnet":
+                    showMagnetTable(
+                        $(this).parent("div").attr("item-id"),
+                        $(this).attr("AVID").replace(/\./g, "-"),
+                        $(this).attr("data-href"),
+                        this,
+                    );
+                    break;
+                case "picture":
+                    showBigImg(
+                        $(this).parent("div").attr("item-id"),
+                        $(this).attr("AVID"),
+                        this,
+                    );
+                    break;
+                default:
+                    break;
+            }
+        });
+        return $elems;
     }
+  }
     class ScrollerPlugin {
         constructor(waterfall, lazyLoad) {
             let me = this;
@@ -1325,8 +1356,8 @@
         .imgResult-li:hover{cursor:pointer;color:white}
         @keyframes changeTextColor{0%{color:rgba(255,255,255,1)}50%{color:rgba(255,255,255,.5)}100%{color:rgba(255,255,255,1)}}
         .container:not(.is-max-desktop):not(.is-max-widescreen) {max-width: 100%;}`;
-        GM_addStyle(css_waterfall);
-    };
+      GM_addStyle(css_waterfall);
+  };
 
     class DownloadPanel {
         constructor() {
@@ -1336,15 +1367,15 @@
             let me = this;
             const urlList = [
                 [
-                    "https://unpkg.com/jszip@3.10.1/dist/jszip.min.js",
+                    "https://unpkg.com/jszip@3.6.0/dist/jszip.min.js",
                     "https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js",
                 ],
                 [
+                    "https://cdn.jsdelivr.net/npm/jszip@3.6.0/dist/jszip.min.js",
+                    "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
                 ],
-                "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",
-                "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
                 [
-                    "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
+                    "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js",
                     "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js",
                 ],
             ];
@@ -1383,8 +1414,8 @@
                 #downloadPanel input:focus{outline:0px;}#downloadPanel button[disabled]{color:#0006;cursor:not-allowed !important}
                 .downloadform{font-size:20px;display:flex;height:40px;align-items:center;}#file-Info div[name=filename]{width:70%;display:inline-block;text-align:right}
                 #file-Info div[name=state]{width:30%;display:inline}`,
-            );
-            me.element = $(`<div id="downloadPanel">
+      );
+        me.element = $(`<div id="downloadPanel">
                           <div class="downloadform">
                             <button name="download"  disabled="true">下载</button>
                             <span style="margin-left:10px;">番号: </span><input  placeholder="ssni,abp" autocomplete="off" name="key"></input>
@@ -1395,105 +1426,105 @@
                           </div>
                           <div id="file-Info"></div>
                        </div>`);
-            me.loadJS();
-            me.element.find("button[name=download]").on("click", function () {
-                let button = this;
-                button.disabled = true;
-                me.resetInfo();
-                let arrayList = me.getResultList();
-                if (arrayList.length) {
-                    me.element.find("span[name=total]").text(arrayList.length);
-                    let poolLimit = me.element.find("input[name=poolLimit]").val();
-                    me.downloadZip(poolLimit ? poolLimit : 5, arrayList).then(
-                        () => (button.disabled = false),
-                    );
-                } else {
-                    me.element.find("span[name=msg]").text("无过滤结果");
-                    button.disabled = false;
-                }
-            });
-        }
-        getResultList() {
-            let list = [];
-            let key = this.element.find("input[name=key]").val().toUpperCase();
-            let keyArray = key
-                .replace("，", ",")
-                .split(",")
-                .filter((k) => k && k.trim());
-            $("div.box-b").each(function () {
-                let avid = $(this).find("date[name=avid]").text();
-                if (
-                    keyArray.length &&
-                    !keyArray.find((k) => avid.toUpperCase().indexOf(k) > -1)
-                ) {
-                    return;
-                }
-                let url = $(this).find("img.lazy").attr("data-src");
-                let title = $(this).find("a[name='av-title']").attr("title");
-                let filename = `${avid} ${title.replace(/\//g, "_")}.jpg`; //标题中含有斜杠时，压缩包创建文件夹
-                list.push({ avid: avid, url: url, filename: filename });
-            });
-            return list;
-        }
-        downloadZip(poolLimit, arrayList) {
-            let me = this;
-            let sum = 0;
-            let zip = new JSZip();
-            return me
-                .asyncPool(poolLimit, arrayList, function (item, array) {
-                    let $state = me.addFileInfo(item.avid);
-                    return me
-                        .getImgResource(item.url)
-                        .then((r) => {
-                            if (r.status == "200") {
-                                zip.file(item.filename, r.response);
-                                $state.text(`✅`);
-                                me.element.find(`span[name="sum"]`).text(`${++sum}/`);
-                            } else {
-                                $state.text(`❎`);
-                            }
-                        })
-                        .catch((err) => $state.text(`❎`));
-                })
-                .then(() =>
-                    zip
-                        .generateAsync({ type: "blob" })
-                        .then((blob) => saveAs(blob, "download.zip")),
+        me.loadJS();
+        me.element.find("button[name=download]").on("click", function () {
+            let button = this;
+            button.disabled = true;
+            me.resetInfo();
+            let arrayList = me.getResultList();
+            if (arrayList.length) {
+                me.element.find("span[name=total]").text(arrayList.length);
+                let poolLimit = me.element.find("input[name=poolLimit]").val();
+                me.downloadZip(poolLimit ? poolLimit : 5, arrayList).then(
+                    () => (button.disabled = false),
                 );
-        }
-        getImgResource(url) {
-            return getRequest(url, {
-                responseType: "blob",
-                headers: { Referer: url },
-            });
-        }
-        //https://blog.csdn.net/ghostlpx/article/details/106431837
-        async asyncPool(poolLimit, array, iteratorFn) {
-            const ret = [];
-            const executing = [];
-            for (const item of array) {
-                const p = Promise.resolve().then(() => iteratorFn(item, array));
-                ret.push(p);
-                const e = p.then(() => executing.splice(executing.indexOf(e), 1));
-                executing.push(e);
-                if (executing.length >= poolLimit) {
-                    await Promise.race(executing);
-                }
+            } else {
+                me.element.find("span[name=msg]").text("无过滤结果");
+                button.disabled = false;
             }
-            return Promise.all(ret);
-        }
-        addFileInfo(avid) {
-            let $fileInfo = $(
-                `<div style="width:50%;display:inline-block;float:left;"><div name="filename">${avid}:</div><div name="state">⏰</div></div>`,
-            );
-            this.element.find("#file-Info").append($fileInfo);
-            return $fileInfo.find("div[name=state]");
-        }
-        resetInfo() {
-            this.element.find("span.progress-Info span").text("");
-            this.element.find("#file-Info").empty();
-        }
+        });
     }
+      getResultList() {
+          let list = [];
+          let key = this.element.find("input[name=key]").val().toUpperCase();
+          let keyArray = key
+          .replace("，", ",")
+          .split(",")
+          .filter((k) => k && k.trim());
+          $("div.box-b").each(function () {
+              let avid = $(this).find("date[name=avid]").text();
+              if (
+                  keyArray.length &&
+                  !keyArray.find((k) => avid.toUpperCase().indexOf(k) > -1)
+              ) {
+                  return;
+              }
+              let url = $(this).find("img.lazy").attr("data-src");
+              let title = $(this).find("a[name='av-title']").attr("title");
+              let filename = `${avid} ${title.replace(/\//g, "_")}.jpg`; //标题中含有斜杠时，压缩包创建文件夹
+              list.push({ avid: avid, url: url, filename: filename });
+          });
+          return list;
+      }
+      downloadZip(poolLimit, arrayList) {
+          let me = this;
+          let sum = 0;
+          let zip = new JSZip();
+          return me
+              .asyncPool(poolLimit, arrayList, function (item, array) {
+              let $state = me.addFileInfo(item.avid);
+              return me
+                  .getImgResource(item.url)
+                  .then((r) => {
+                  if (r.status == "200") {
+                      zip.file(item.filename, r.response);
+                      $state.text(`✅`);
+                      me.element.find(`span[name="sum"]`).text(`${++sum}/`);
+                  } else {
+                      $state.text(`❎`);
+                  }
+              })
+                  .catch((err) => $state.text(`❎`));
+          })
+              .then(() =>
+                    zip
+                    .generateAsync({ type: "blob" })
+                    .then((blob) => saveAs(blob, "download.zip")),
+                   );
+      }
+      getImgResource(url) {
+          return getRequest(url, {
+              responseType: "blob",
+              headers: { Referer: url },
+          });
+      }
+      //https://blog.csdn.net/ghostlpx/article/details/106431837
+      async asyncPool(poolLimit, array, iteratorFn) {
+          const ret = [];
+          const executing = [];
+          for (const item of array) {
+              const p = Promise.resolve().then(() => iteratorFn(item, array));
+              ret.push(p);
+              const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+              executing.push(e);
+              if (executing.length >= poolLimit) {
+                  await Promise.race(executing);
+              }
+          }
+          return Promise.all(ret);
+      }
+      addFileInfo(avid) {
+          let $fileInfo = $(
+              `<div style="width:50%;display:inline-block;float:left;"><div name="filename">${avid}:</div><div name="state">⏰</div></div>`,
+          );
+          this.element.find("#file-Info").append($fileInfo);
+          return $fileInfo.find("div[name=state]");
+      }
+      resetInfo() {
+          this.element.find("span.progress-Info span").text("");
+          this.element.find("#file-Info").empty();
+      }
+  }
 
     class InputTagPanel {
         constructor(key, placeholder) {
@@ -1515,9 +1546,9 @@
                 let key = me.$input.val().trim();
                 if (key && (event.keyCode ? event.keyCode : event.which) === 13) {
                     let keyArray = key
-                        .replace("，", ",")
-                        .split(",")
-                        .filter((k) => k && k.trim());
+                    .replace("，", ",")
+                    .split(",")
+                    .filter((k) => k && k.trim());
                     me.add(keyArray);
                 }
             });
@@ -1528,27 +1559,27 @@
                 .input-tag-panel>kbd>a:hover{cursor:pointer;color:red;}
                 .input-tag-panel input{width:100%;height:30px;border:solid 1px burlywood;border-radius:5px;padding:5px;font-size:20px;}
                 .input-tag-panel input:focus{outline:none;}`,
-            );
-        }
-        add(keyArray) {
-            let me = this;
-            let $tag = [];
-            keyArray.forEach((key) => {
-                $tag.push(`<kbd><span>${key}</span><a href="#">❌</a><kbd>`);
-                me.data.push(key);
-            });
-            me.$panel.append($tag).fadeIn();
-            Status.set(me.key, me.data);
-        }
-        delete($a) {
-            let me = this;
-            let key = $a.prev("span").text();
-            $a.parent("kbd").fadeOut();
-            let index = me.data.findIndex((v) => key == v);
-            index > -1 && me.data.splice(index, 1);
-            Status.set(me.key, me.data);
-        }
+      );
     }
+      add(keyArray) {
+          let me = this;
+          let $tag = [];
+          keyArray.forEach((key) => {
+              $tag.push(`<kbd><span>${key}</span><a href="#">❌</a><kbd>`);
+              me.data.push(key);
+          });
+          me.$panel.append($tag).fadeIn();
+          Status.set(me.key, me.data);
+      }
+      delete($a) {
+          let me = this;
+          let key = $a.prev("span").text();
+          $a.parent("kbd").fadeOut();
+          let index = me.data.findIndex((v) => key == v);
+          index > -1 && me.data.splice(index, 1);
+          Status.set(me.key, me.data);
+      }
+  }
 
     class TabPanel {
         constructor() {
@@ -1566,54 +1597,54 @@
                                     <div class="tab_content_item"></div>
                                 </div>
                             </div>`);
-            me.$li = me.element.find(".tab_list ul>li");
-            me.$item = me.element.find(".tab_content_item");
-            me.$li.on("click", function () {
-                me.show(me.$li.index(this));
-            });
-            me.element.find(".close-div").on("click", function () {
-                me.element.toggle();
-            });
-            $("body").append(me.element);
-        }
-        show(index = 0) {
-            let me = this;
-            me.$li.each((i, el) => {
-                $(el).removeClass("tab_current");
-            });
-            me.$li.eq(index).addClass("tab_current");
-            me.$item.each((i, el) => {
-                $(el).hide();
-            });
-            if (me.$item.eq(index).children().length == 0) {
-                me.addItem(index);
-            }
-            me.$item.eq(index).show();
-            me.element.show();
-        }
-        addItem(index) {
-            let me = this;
-            switch (index) {
-                case 0:
-                    let downloadPanel = new DownloadPanel();
-                    me.$item.eq(index).append(downloadPanel.element);
-                    break;
-                case 1:
-                    let tag1 = new InputTagPanel("hiddenWord", "标题：支持逗号隔开");
-                    let tag2 = new InputTagPanel(
-                        "hiddenAvid",
-                        `番号：支持逗号隔开,单个或系列如SSIS,OPX-123`,
-                    );
-                    me.$item.eq(index).append(tag1.$panel).append(tag2.$panel);
-                    break;
-            }
-        }
-        static getInstance() {
-            if (!this.instance) {
-                this.instance = new TabPanel();
-            }
-            return this.instance;
-        }
+        me.$li = me.element.find(".tab_list ul>li");
+        me.$item = me.element.find(".tab_content_item");
+        me.$li.on("click", function () {
+            me.show(me.$li.index(this));
+        });
+        me.element.find(".close-div").on("click", function () {
+            me.element.toggle();
+        });
+        $("body").append(me.element);
     }
+      show(index = 0) {
+          let me = this;
+          me.$li.each((i, el) => {
+              $(el).removeClass("tab_current");
+          });
+          me.$li.eq(index).addClass("tab_current");
+          me.$item.each((i, el) => {
+              $(el).hide();
+          });
+          if (me.$item.eq(index).children().length == 0) {
+              me.addItem(index);
+          }
+          me.$item.eq(index).show();
+          me.element.show();
+      }
+      addItem(index) {
+          let me = this;
+          switch (index) {
+              case 0:
+                  let downloadPanel = new DownloadPanel();
+                  me.$item.eq(index).append(downloadPanel.element);
+                  break;
+              case 1:
+                  let tag1 = new InputTagPanel("hiddenWord", "标题：支持逗号隔开");
+                  let tag2 = new InputTagPanel(
+                      "hiddenAvid",
+                      `番号：支持逗号隔开,单个或系列如SSIS,OPX-123`,
+                  );
+                  me.$item.eq(index).append(tag1.$panel).append(tag2.$panel);
+                  break;
+          }
+      }
+      static getInstance() {
+          if (!this.instance) {
+              this.instance = new TabPanel();
+          }
+          return this.instance;
+      }
+  }
     new Page();
 })();
