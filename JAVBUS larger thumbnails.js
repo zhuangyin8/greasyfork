@@ -3,7 +3,7 @@
 // @name:zh-CN   ⏰JAVBUS封面大图
 // @namespace    https://github.com/zhuangyin8
 // @homepage     https://greasyfork.org/zh-CN/scripts/504970
-// @version      2024-09-03
+// @version      2024-08-25
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
@@ -447,6 +447,8 @@
     }
 
     //获取javdb的演员、预览图、磁力信息
+    GM_addStyle(`#modal-div .pop-up-tag {display: grid;  grid-template-columns: repeat(2, 1fr);grid-auto-rows: minmax(100px, auto);grid-template-areas:"a a""b b""c d";}
+    .pop-up-tag .panel-block{grid-area: a;}.pop-up-tag .columns:nth-child(even){grid-area: b;}.pop-up-tag .columns:nth-child(odd){grid-area: c;max-height: 472px;overflow-x: hidden;}.pop-up-tag nav{grid-area: d;}`);
     async function getMagnet4JavDB(href, tagName, itemID, avid) {
         let doc = await fetch(href).then((response) => response.text());
         let $doc = $($.parseHTML(doc));
@@ -470,116 +472,127 @@
                 .find("#preview-video")
                 .attr("id", `preview-video-${itemID}`);
             // 根据番号转换用于在JAVDB非详情页面替换预览图片的dmm获取 如果javdb没有预览图
-            $preview_images.find("a.tile-item").each((i, el) => {
-                const arr = avid.split("-");
+            $preview_images.find('a.tile-item').each((i, el) => {
+                const arr = avid.split('-');
                 const qian = arr[0].toLowerCase();
                 const hou = arr[1];
                 let fanhao, url;
-              	if (["aed","ako","anb","apaa","apns","aquco","aqula","aran","atid","awd","dass","ekdv","erofc","fbos","fjin","hkd","hoks","instc","jsop","lulu","mide","midv","omhd","pred","snis","sivr","sone","sqte","ssni","urvrsp"].includes(qian)||(qian=="vrkm"&&hou>167&&hou<1000)||(qian=="savr"&&hou>105)||(qian=="crvr"&&hou>239)) {
+              	if (['aed','ako','anb','apaa','apns','aquco','aqula','aran','atid','awd','dass','ekdv','erofc','fbos','fjin','hkd','hoks','instc','jsop','lulu','mide','midv','omhd','pred','snis','sivr','sone','sqte','ssni','urvrsp'].includes(qian)||(qian=='vrkm'&&hou>167&&hou<1000)||(qian=='savr'&&hou>105)||(qian=='crvr'&&hou>239)) {
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian=="vrkm"&&hou>999) {
+                } else if (qian=='vrkm'&&hou>999) {
                     fanhao = `${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["aege","akdl","bkynb","dandy","dldss","drpt","dvdes","fadss","fcdss","fsdss","fset","ftht","ftk","ftkd","gar","havd","hbad","hunta","huntb","huntc","ienf","ienfh","kmhr","kmhrs","mane","mfth","mist","mogi","msfh","msfh","mtall","nhdta","nhdtb","nhvr","ntr","nyh","piyo","rct","rctd","setm","sdab","sdam","sdde","sdjs","sdmf","sdmm","sdmu","sdmua","sdnm","sdnt","sdth","senn","seven","sgki","shh","shn","silkc","sply","star","stars","start","stko","sun","suwk","svdvd","svmgm","sw","wawa","wo",].includes(qian)) {
+                } else if (['aege','akdl','bkynb','dandy','dldss','drpt','dvdes','fadss','fcdss','fsdss','fset','ftht','ftk','ftkd','gar','havd','hbad','hunta','huntb','huntc','iene','ienf','ienfh','kmhr','kmhrs','mane','mfth','mist','mogi','msfh','msfh','mtall','nhdta','nhdtb','nhvr','ntr','nyh','piyo','rct','rctd','setm','sdab','sdam','sdde','sdjs','sdmf','sdmm','sdmu','sdmua','sdnm','sdnt','sdth','senn','seven','sgki','shh','shn','silkc','sply','star','stars','start','stko','sun','suwk','svdvd','svmgm','sw','wawa','wo',].includes(qian)) {
                     fanhao = `1${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["gvg"].includes(qian)) {
+                } else if (['lol'].includes(qian)) {
+                    fanhao = `12${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
+                } else if (['gvg'].includes(qian)) {
                     fanhao = `13${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["dsvr"].includes(qian)) {
+                } else if (['dsvr'].includes(qian)) {
                     fanhao = `13${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tmavr"].includes(qian)) {
+                } else if (['tmavr'].includes(qian)) {
                     fanhao = `55${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["hez"].includes(qian)) {
+                } else if (['hez'].includes(qian)) {
                     fanhao = `59${qian}${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tpvr","kmvr","kbvr","averv"].includes(qian)||(qian=="vrkm"&&hou<168)) {
+                } else if (['tpvr','kmvr','kbvr','averv'].includes(qian)||(qian=='vrkm'&&hou<168)) {
                     fanhao = `84${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["abf","abp","abw","bgn","docp","fir","gets","giro","gnab",/*"good",*/"har","jbs","kbi","mas","mct","npv","ppt","rdt","sga","tem","wps",].includes(qian)) {
+                } else if (['abf','abp','abw','bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps',].includes(qian)) {
                     fanhao = `118${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["hodv"].includes(qian)) {
+                } else if (['hodv'].includes(qian)) {
                     fanhao = `5642${qian}${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["nash"].includes(qian)) {
+                } else if (['nash'].includes(qian)) {
                     fanhao = `h_067${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["hone", "ypaa"].includes(qian)) {
+                } else if (['fera','hone', 'ypaa'].includes(qian)) {
                     fanhao = `h_086${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["ktra"].includes(qian)) {
+                } else if (['ktra'].includes(qian)) {
                     fanhao = `h_094${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["nsps"].includes(qian)) {
+                } else if (['nsps'].includes(qian)) {
                     fanhao = `h_102${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["ambi","hdka",'nacr'].includes(qian)) {
+                } else if (['jukf','jutn'].includes(qian)) {
+                    fanhao = `h_227${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
+                } else if (['ambi','hdka','nacr'].includes(qian)) {
                     fanhao = `h_237${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tama"].includes(qian)) {
+                } else if (['tama'].includes(qian)) {
                     fanhao = `h_254${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tmdi"].includes(qian)) {
+                } else if (['tmdi'].includes(qian)) {
                     fanhao = `h_452${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["fone"].includes(qian)) {
+                } else if (['fone'].includes(qian)) {
                     fanhao = `h_491${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 } else if (['san'].includes(qian)) {
                     fanhao = `h_796${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["gigl"].includes(qian)) {
+                } else if (['gigl'].includes(qian)) {
                     fanhao = `h_860${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["vovs"].includes(qian)) {
+                } else if (['bstc'].includes(qian)) {
+                    fanhao = `h_1117${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
+                } else if (['vovs'].includes(qian)) {
                     fanhao = `h_1127${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["good"].includes(qian)) {
+                } else if (['good'].includes(qian)) {
                     fanhao = `h_1133${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian=="crvr"&&hou<240) {
+                } else if (qian=='crvr'&&hou<240) {
                     fanhao = `h_1155${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (qian=="savr"&&hou<106) {
+                } else if (qian=='savr'&&hou<106) {
                     fanhao = `h_1241${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["kiwvr"].includes(qian)) {
+                } else if (['kiwvr'].includes(qian)) {
                     fanhao = `h_1248${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["tpvr"].includes(qian)) {
+                } else if (['tpvr'].includes(qian)) {
                     fanhao = `h_1256${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["skmj"].includes(qian)) {
+                } else if (['skmj'].includes(qian)) {
                     fanhao = `h_1324${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["kamef"].includes(qian)) {
+                } else if (['kamef'].includes(qian)) {
                     fanhao = `h_1350${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                    //https://pics.dmm.co.jp/digital/video/h_1472instv00587/h_1472instv00587jp-1.jpg
-                } else if (["fanh",""].includes(qian)) {
+                } else if (['fanh','instv'].includes(qian)) {
                     fanhao = `h_1472${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["devr"].includes(qian)) {
+                } else if (['devr'].includes(qian)) {
                     fanhao = `h_1711${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["ggdr"].includes(qian)) {
+                } else if (['ggdr'].includes(qian)) {
                     fanhao = `h_1758${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
-                } else if (["anan"].includes(qian)) {
-                    fanhao = `714${qian}00${hou}`;
-                    url = `https://image.mgstage.com/images/shiroutoanan/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
-                } else if (["otim"].includes(qian)) {
+                } else if (['simm'].includes(qian)) {
+                    fanhao = `345${qian}-${hou}`;
+                    url = `https://image.mgstage.com/images/shiroutomanman/345${qian}/${hou}/cap_e_${i}_${fanhao}.jpg`;
+                } else if (['otim'].includes(qian)) {
                     fanhao = `393${qian}00${hou}`;
                     url = `https://image.mgstage.com/images/onetime/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
+                } else if (['anan'].includes(qian)) {
+                    fanhao = `714${qian}00${hou}`;
+                    url = `https://image.mgstage.com/images/shiroutoanan/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
                 } else {
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i + 1}.jpg`;
                 }
-                $(el).attr("href", `${url}`);
+                $(el).attr('href', `${url}`);
             });
             info.append(actors).append(preview_images);
         }
@@ -1320,7 +1333,7 @@
         span.span-loading{display:inline-block;animation:span-loading 2s infinite}
 
         #myModal{overflow-x:hidden;overflow-y:auto;display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1050;background-color:rgba(0,0,0,0.5)}
-        #myModal #modal-div{position:relative;width:80%;margin:0 auto;background-color:rgb(6 6 6 / 50%);border-radius:8px;animation:fadeInDown .5s}
+        #myModal #modal-div{position:relative;width:70%;margin:0 auto;background-color:rgb(6 6 6 / 50%);border-radius:8px;animation:fadeInDown .5s}
         #modal-div .pop-up-tag{border-radius:8px;overflow:hidden}
         #modal-div .sample-box-zdy,.avatar-box-zdy{display:inline-block;border-radius:8px;background-color:#fff;overflow:hidden;margin:5px;width:140px}
         #modal-div .sample-box-zdy .photo-frame{overflow:hidden;margin:10px}
