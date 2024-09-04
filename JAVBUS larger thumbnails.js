@@ -3,7 +3,7 @@
 // @name:zh-CN   ⏰JAVBUS封面大图
 // @namespace    https://github.com/zhuangyin8
 // @homepage     https://greasyfork.org/zh-CN/scripts/504970
-// @version      2024-08-25
+// @version      2024-09-04
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
