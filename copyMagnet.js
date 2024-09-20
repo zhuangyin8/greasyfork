@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
-// @author           @zhuangyin8
-// @version          2024.08.14
+// @author           https://github.com/zhuangyin8
+// @version          2024-09.20
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -19,17 +19,12 @@
 // @namespace *
 // @downloadURL
 // @updateURL
-// @downloadURL https://update.greasyfork.org/scripts/495796
-// @updateURL https://update.greasyfork.org/scripts/495796
+// @downloadURL https://update.greasyfork.org/scripts/495796/%E7%A3%81%E5%8A%9B%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6.user.js
+// @updateURL https://update.greasyfork.org/scripts/495796/%E7%A3%81%E5%8A%9B%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6.meta.js
 // ==/UserScript==
 (function () {
 	"use strict";
-	const addElement = (
-		tagName = `button`,
-		innerHTML = ``,
-		options = {},
-		parentNode = document.body
-	) => {
+	const addElement = (tagName = `button`,innerHTML = `点击复制第${index + 1}个磁力链接`,options = {},parentNode = document.body) => {
 		const el = document.createElement(tagName);
 		el.innerHTML = innerHTML;
 		Object.assign(el, options);
@@ -38,11 +33,7 @@
 	const copyMagnet = (datalist, hash, title, size, date, magnet) => {
 		document.querySelectorAll(datalist).forEach((element, index) => {
 			const reg = /[a-fA-F\d]{40}/g;
-			const link = `magnet:?xt=urn:btih:${element
-				.querySelector(hash)
-				.href.match(reg)[0]
-				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText
-				}🔞Date=${element.querySelector(date).innerText}`;
+			const link = `magnet:?xt=urn:btih:${element.querySelector(hash).href.match(reg)[0].toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText}🔞Date=${element.querySelector(date).innerText}`;
 			element.querySelector(magnet).textContent = link;
 			addElement(
 				`button`,
@@ -50,12 +41,14 @@
 				{
 					/* className:"",*/
 					onclick: (e) => {
-						//GM_setClipboard(element.querySelector(hash).innerHTML , "html");
+						// GM_setClipboard(element.querySelector(hash).innerHTML , "html");
 						GM_setClipboard(link, "text");
+						//var myLink = "<a href='http://scriptish.org'>visit scriptish.org</a>";
+						//GM_setClipboard(myLink, 'html');
 						e.target.textContent = `已复制第${index + 1}个磁力链接`;
 						setTimeout(() => {
-							e.target.textContent = `点击复制第${index + 1}个磁力链接`;
-						}, 10000);
+						 	e.target.textContent = `点击复制第${index + 1}个磁力链接`;
+						}, 3000);
 						e.target.style.cssText =
 							"color: red; background-color: yellow; height: 100%";
 						// e.target.setAttribute(
@@ -64,7 +57,7 @@
 						// );
 					}
 				},
-				element /*document.getElementById("TM_translateButtons")*/
+				element
 			);
 		});
 	};
@@ -136,5 +129,6 @@
     .search,.search-container{}
     form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
     .container {width: 100vw;left: 360px;position: absolution;}
-    .data-list .row {padding: 0; }`);
+    .data-list .row {padding: 0; }
+    .container > div:first-child{display:none !important;}`);
 })();
