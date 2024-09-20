@@ -24,7 +24,12 @@
 // ==/UserScript==
 (function () {
 	"use strict";
-	const addElement = (tagName = `button`,innerHTML = `点击复制第${index + 1}个磁力链接`,options = {},parentNode = document.body) => {
+	const addElement = (
+		tagName = `button`,
+		innerHTML = `点击复制第${index + 1}个磁力链接`,
+		options = {},
+		parentNode = document.body
+	) => {
 		const el = document.createElement(tagName);
 		el.innerHTML = innerHTML;
 		Object.assign(el, options);
@@ -33,7 +38,12 @@
 	const copyMagnet = (datalist, hash, title, size, date, magnet) => {
 		document.querySelectorAll(datalist).forEach((element, index) => {
 			const reg = /[a-fA-F\d]{40}/g;
-			const link = `magnet:?xt=urn:btih:${element.querySelector(hash).href.match(reg)[0].toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText}🔞Date=${element.querySelector(date).innerText}`;
+			const link = `magnet:?xt=urn:btih:${element
+				.querySelector(hash)
+				.href.match(reg)[0]
+				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${
+				element.querySelector(size).innerText
+			}🔞Date=${element.querySelector(date).innerText}`;
 			element.querySelector(magnet).textContent = link;
 			addElement(
 				`button`,
@@ -47,7 +57,7 @@
 						//GM_setClipboard(myLink, 'html');
 						e.target.textContent = `已复制第${index + 1}个磁力链接`;
 						setTimeout(() => {
-						 	e.target.textContent = `点击复制第${index + 1}个磁力链接`;
+							e.target.textContent = `点击复制第${index + 1}个磁力链接`;
 						}, 3000);
 						e.target.style.cssText =
 							"color: red; background-color: yellow; height: 100%";
