@@ -2,8 +2,8 @@
 // @name         ⏰JAV larger thumbnails
 // @name:zh-CN   ⏰JAV 封面大图
 // @namespace    https://github.com/zhuangyin8
-// @homepage     https://greasyfork.org/zh-CN/scripts/504970
-// @version      2024-09-15
+// @homepage     https://greasyfork.org/zh-CN/scripts/504970-javbus-larger-thumbnails
+// @version      2024-09-20
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
@@ -24,7 +24,8 @@
 // @grant        GM_setValue
 // @grant        GM_download
 // @grant        GM_setClipboard
-// @connect      *.dmm.co.jp
+// @connect      pics.dmm.co.jp
+// @connect      cc3001.dmm.co.jp
 
 // 2024-06-29 修复图片下载失败的问题;新增更新内容通知弹窗
 // 2022-09-18 修复视频截图报错
@@ -452,7 +453,7 @@
     async function getMagnet4JavDB(href, tagName, itemID, avid) {
         GM_addStyle(`#modal-div .pop-up-tag {display: grid;  grid-template-columns: repeat(2, 1fr);grid-auto-rows: minmax(100px, auto);
         grid-template-areas:"b b""c d";}/*.pop-up-tag .panel-block{grid-area: a;}*/.pop-up-tag .columns:nth-child(odd){grid-area: b;}
-        .pop-up-tag .columns:nth-child(even){grid-area: c;max-height: 472px;overflow-x: hidden;}.pop-up-tag nav{grid-area: d;}`);
+        .pop-up-tag .columns:nth-child(even){grid-area: c;}.pop-up-tag nav{grid-area: d;}#tabs-container{max-height: 472px;overflow-x: hidden}`);
         let doc = await fetch(href).then((response) => response.text());
         let $doc = $($.parseHTML(doc));
         let info = $(`<div class="pop-up-tag" name="${tagName}"></div>`);
@@ -464,7 +465,7 @@
             let $preview_images = $(preview_images);
             //$preview_images.find(".preview-video-container").attr("href", `#preview-video-${itemID}`);
             //$preview_images.find("#preview-video").attr("id", `preview-video-${itemID}`);
-            // 根据番号转换用于在JAVDB非详情页面替换预览图片的dmm获取 如果javdb没有预览图
+            // 根据番号转换用于在JAVDB详情页面替换预览图片的dmm获取 如果javdb没有预览图
             $preview_images.find('a.tile-item').each((i, el) => {
                 i += 1;
                 const arr = avid.split('-');
@@ -472,24 +473,24 @@
                 const hou = arr[1];
                 let fanhao, url;
                 if (
-                    ['aed','ako','anb','apaa','apns','aquco','aqula','aran','atid','awd','dass','dvdms','ekdv','erofc','fbos','fjin','hkd','hoks','hunta','huntb','hhhvr','instc','jsop','lulu','kiwvr','mide','midv','omhd','pred','snis','sivr','sone','sqte','ssni','tttv','urvrsp'].includes(qian) ||
-                    (qian == 'vrkm' && hou > 167 && hou < 1000) ||
-                    (qian == 'savr' && hou > 105) ||
-                    (qian == 'crvr' && hou > 239)
+                    ['aed','ako','anb','apaa','apns','aquco','aqula','aran','atid','awd','dass','dvdms','ekdv','erofc','fbos','fjin','hkd','hoks','hunta','huntb','huntc','hhhvr','instc','jsop','lulu','kiwvr','ktra','mide','midv','omhd','pred','snis','sivr','sone','sqte','ssni','tttv','urvrsp','wanz'].includes(qian) ||
+                    (qian == 'vrkm' && hou > 167 && hou < 1000) || (qian == 'savr' && hou > 105) ||(qian == 'crvr' && hou > 239) ||(qian == 'mkmp' && hou > 389)
                 ) {
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (qian == 'vrkm' && hou > 999) {
                     fanhao = `${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['aege','akdl','bkynb','dandy','dldss','drpt','dvdes','fadss','fcdss','fsdss','fset','fsvss','ftht','ftk','ftkd','gar','havd','hbad','huntc','iene','ienf','ienfh','kmhr','kmhrs','mane','mfth','mist','mogi','moon','msfh','msfh','mtall','nhdta','nhdtb','nhvr','ntr','nyh','piyo','rct','rctd','setm','sdab','sdam','sdde','sdjs','sdmf','sdmm','sdmu','sdmua','sdnm','sdnt','sdth','senn','seven','sgki','shh','shn','silkc','sply','star','stars','start','stko','sun','suwk','svdvd','svgal','svmgm','sw','wawa','wo'].includes(qian)) {
+                } else if (['aege','akdl','bkynb','dandy','dldss','drpt','dvdes','fadss','fcdss','fsdss','fset','fsvss','ftht','ftk','ftkd','gar','havd','hbad','iene','ienf','ienfh','kmhr','kmhrs','mane','mfth','mist','mogi','moon','msfh','msfh','mtall','nhdta','nhdtb','nhvr','ntr','nyh','piyo','rct','rctd','setm','sdab','sdam','sdde','sdjs','sdmf','sdmm','sdmu','sdmua','sdnm','sdnt','sdth','senn','seven','sgki','shh','shn','silkc','sply','star','stars','start','stko','sun','suwk','svdvd','svgal','svmgm','sw','wawa','wo'].includes(qian)) {
                     fanhao = `1${qian}00${hou}`;
-                    //https://pics.dmm.co.jp/digital/video/1fsvss00011/1fsvss00011jp-1.jpg
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
+                } else if (['wanz'].includes(qian)) {
+                    fanhao = `3${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['lol'].includes(qian)) {
                     fanhao = `12${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['gvg'].includes(qian)) {
+                } else if (['gg','gvg'].includes(qian)) {
                     fanhao = `13${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['dsvr'].includes(qian)) {
@@ -501,7 +502,7 @@
                 } else if (['hez'].includes(qian)) {
                     fanhao = `59${qian}${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['tpvr', 'kmvr', 'kbvr', 'averv'].includes(qian) ||(qian == 'vrkm' && hou < 168)) {
+                } else if (['tpvr', 'kmvr', 'kbvr', 'averv'].includes(qian) ||(qian == 'vrkm' && hou < 168)||(qian == 'mkmp' && hou < 390)) {
                     fanhao = `84${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['abf','abp','abw','bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps'].includes(qian)) {
@@ -515,6 +516,9 @@
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['nash'].includes(qian)) {
                     fanhao = `h_067${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
+                } else if (['mxgs'].includes(qian)) {
+                    fanhao = `h_068${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['fera', 'hone', 'ypaa'].includes(qian)) {
                     fanhao = `h_086${qian}00${hou}`;
@@ -573,6 +577,9 @@
                 } else if (['tpvr'].includes(qian)) {
                     fanhao = `h_1256${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
+                } else if (['cbikmv'].includes(qian)) {
+                    fanhao = `h_1285${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['skmj'].includes(qian)) {
                     fanhao = `h_1324${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
@@ -594,9 +601,17 @@
                 } else if (['simm'].includes(qian)) {
                     fanhao = `345${qian}-${hou}`;
                     url = `https://image.mgstage.com/images/shiroutomanman/345${qian}/${hou}/cap_e_${i}_${fanhao}.jpg`;
-                } else if (['otim'].includes(qian)) {
-                    fanhao = `393${qian}00${hou}`;
-                    url = `https://image.mgstage.com/images/onetime/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
+                } else if (['otim','onex'].includes(qian)) {
+                    switch (qian) {
+                        case 'otim':
+                            url = `https://image.mgstage.com/images/onetime/393${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
+                            break;
+                        case 'onex':
+                            url = `https://image.mgstage.com/images/onemore/013${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
+                            break;
+                        default:
+                            console.log(`Sorry, we are out of ${expr}.`);
+                    }
                 } else if (['anan'].includes(qian)) {
                     fanhao = `714${qian}00${hou}`;
                     url = `https://image.mgstage.com/images/shiroutoanan/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
@@ -607,7 +622,7 @@
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 }
-                $(el).attr('href', `${url}`);
+               $(el).attr('href', `${url}`);
             });
             //info.append(actors).append(preview_images);
             info.append(preview_images);
