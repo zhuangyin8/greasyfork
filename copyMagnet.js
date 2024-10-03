@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
-// @author           https://github.com/zhuangyin8
-// @version          2024-09.20
+// @author           @zhuangyin8
+// @version          2024.10.02
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -24,12 +24,7 @@
 // ==/UserScript==
 (function () {
 	"use strict";
-	const addElement = (
-		tagName = `button`,
-		innerHTML = `点击复制第${index + 1}个磁力链接`,
-		options = {},
-		parentNode = document.body
-	) => {
+	const addElement = (tagName = `button`,innerHTML = `点击复制第${index + 1}个磁力链接`,options = {},parentNode = document.body) => {
 		const el = document.createElement(tagName);
 		el.innerHTML = innerHTML;
 		Object.assign(el, options);
@@ -38,12 +33,7 @@
 	const copyMagnet = (datalist, hash, title, size, date, magnet) => {
 		document.querySelectorAll(datalist).forEach((element, index) => {
 			const reg = /[a-fA-F\d]{40}/g;
-			const link = `magnet:?xt=urn:btih:${element
-				.querySelector(hash)
-				.href.match(reg)[0]
-				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${
-				element.querySelector(size).innerText
-			}🔞Date=${element.querySelector(date).innerText}`;
+			const link = `magnet:?xt=urn:btih:${element.querySelector(hash).href.match(reg)[0].toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText}🔞Date=${element.querySelector(date).innerText}`;
 			element.querySelector(magnet).textContent = link;
 			addElement(
 				`button`,
@@ -57,7 +47,7 @@
 						//GM_setClipboard(myLink, 'html');
 						e.target.textContent = `已复制第${index + 1}个磁力链接`;
 						setTimeout(() => {
-							e.target.textContent = `点击复制第${index + 1}个磁力链接`;
+						 	e.target.textContent = `点击复制第${index + 1}个磁力链接`;
 						}, 3000);
 						e.target.style.cssText =
 							"color: red; background-color: yellow; height: 100%";
@@ -122,6 +112,7 @@
 				".torrent_age",
 				".torrent_magnet"
 			);
+            document.querySelectorAll("div").forEach(e => {e.style="";e.classList.remove("style");});
 			break;
 		default:
 	}
@@ -132,7 +123,8 @@
 		#article {max-width: 120ex !important;}
 		.torrent_name {width: 980px !important;}
 		body > center > div {max-width: 1500px !important;}`);*/
-	GM_addStyle(`.torrent-list > tbody > tr > td {white-space: normal !important;}
+	GM_addStyle(`
+    .torrent-list > tbody > tr > td {white-space: normal !important;}
     .tags-box { width: 100vw;position: fixed; top: 40px;}
     .data-list{ width: 100vw;position: absolute;top: 160px;}
     .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
@@ -140,5 +132,19 @@
     form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
     .container {width: 100vw;left: 360px;position: absolution;}
     .data-list .row {padding: 0; }
-    .container > div:first-child{display:none !important;}`);
+    /*sukebei*/
+    .group-container,.exo_wrapper{display:none !important;}
+    /*btdig*/
+    .one_result {display:inline-block;text-align: left;border: 2px dashed #32a1ce;line-height:1.4;}
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid;grid-template-columns:repeat(2, 1fr);gap:5px}
+    .torrent_magnet {background:#00a400;}
+    body > a,
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div:nth-child(odd),
+    body > center > div > div:nth-child(2),
+    body > center > div > div:nth-child(1) > div:nth-child(1),
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(5){display:none;}
+    body > center > div > div:nth-child(1) > form {position:fixed;top:0;right:0;}
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(1),
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) {display:inline-block; margin: 10px 0;position:fixed;top:0px;left:20vw;background:red}
+    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) > div > div,form{display:inline-block;margin:0 10px;}`);
 })();
