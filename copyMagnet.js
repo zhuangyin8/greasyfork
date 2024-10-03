@@ -2,7 +2,7 @@
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
 // @author           @zhuangyin8
-// @version          2024.10.02
+// @version          2024.10.30
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -24,7 +24,12 @@
 // ==/UserScript==
 (function () {
 	"use strict";
-	const addElement = (tagName = `button`,innerHTML = `点击复制第${index + 1}个磁力链接`,options = {},parentNode = document.body) => {
+	const addElement = (
+		tagName = `button`,
+		innerHTML = `点击复制第${index + 1}个磁力链接`,
+		options = {},
+		parentNode = document.body
+	) => {
 		const el = document.createElement(tagName);
 		el.innerHTML = innerHTML;
 		Object.assign(el, options);
@@ -33,7 +38,12 @@
 	const copyMagnet = (datalist, hash, title, size, date, magnet) => {
 		document.querySelectorAll(datalist).forEach((element, index) => {
 			const reg = /[a-fA-F\d]{40}/g;
-			const link = `magnet:?xt=urn:btih:${element.querySelector(hash).href.match(reg)[0].toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${element.querySelector(size).innerText}🔞Date=${element.querySelector(date).innerText}`;
+			const link = `magnet:?xt=urn:btih:${element
+				.querySelector(hash)
+				.href.match(reg)[0]
+				.toLowerCase()}&dn=${element.querySelector(title).innerText}🔞Size=${
+				element.querySelector(size).innerText
+			}🔞Date=${element.querySelector(date).innerText}`;
 			element.querySelector(magnet).textContent = link;
 			addElement(
 				`button`,
@@ -47,7 +57,7 @@
 						//GM_setClipboard(myLink, 'html');
 						e.target.textContent = `已复制第${index + 1}个磁力链接`;
 						setTimeout(() => {
-						 	e.target.textContent = `点击复制第${index + 1}个磁力链接`;
+							e.target.textContent = `点击复制第${index + 1}个磁力链接`;
 						}, 3000);
 						e.target.style.cssText =
 							"color: red; background-color: yellow; height: 100%";
@@ -61,8 +71,7 @@
 			);
 		});
 	};
-	let host = location.host.split(".")[0];
-	switch (host) {
+	switch (location.host.split(".")[0]) {
 		case "zhongzidi":
 			copyMagnet(
 				".row table",
@@ -112,7 +121,10 @@
 				".torrent_age",
 				".torrent_magnet"
 			);
-            document.querySelectorAll("div").forEach(e => {e.style="";e.classList.remove("style");});
+			document.querySelectorAll("div").forEach((e) => {
+				e.style = "";
+				e.classList.remove("style");
+			});
 			break;
 		default:
 	}
@@ -125,13 +137,17 @@
 		body > center > div {max-width: 1500px !important;}`);*/
 	GM_addStyle(`
     .torrent-list > tbody > tr > td {white-space: normal !important;}
-    .tags-box { width: 100vw;position: fixed; top: 40px;}
-    .data-list{ width: 100vw;position: absolute;top: 160px;}
+    .tags-box { width: 100vw;position: fixed; top: 50px;}
+    .data-list{ width: 100vw;position: absolute;top: 200px;}
     .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
     .search,.search-container{}
     form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
     .container {width: 100vw;left: 360px;position: absolution;}
     .data-list .row {padding: 0; }
+    /*btsow
+
+    /*u9a9*/
+    .container .ad{display:none !important;}
     /*sukebei*/
     .group-container,.exo_wrapper{display:none !important;}
     /*btdig*/
