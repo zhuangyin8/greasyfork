@@ -3,7 +3,7 @@
 // @name:zh-CN   ⏰JAV 封面大图
 // @namespace    https://github.com/zhuangyin8
 // @homepage     https://greasyfork.org/zh-CN/scripts/504970-javbus-larger-thumbnails
-// @version      2024-09-20
+// @version      2024-10-03
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
@@ -26,6 +26,7 @@
 // @grant        GM_setClipboard
 // @connect      pics.dmm.co.jp
 // @connect      cc3001.dmm.co.jp
+// @connect      www.prestige-av.com
 
 // 2024-06-29 修复图片下载失败的问题;新增更新内容通知弹窗
 // 2022-09-18 修复视频截图报错
@@ -58,8 +59,8 @@
 // 2020-08-26 修复查询结果为1个时，item宽度为100%的问题
 // 2020-08-26 添加瀑布流
 // 2020-08-24 第一版：封面大图、下载封面、查看视频截图
-// @downloadURL https://update.greasyfork.org/scripts/504970/%E2%8F%B0JAVBUS%20larger%20thumbnails.user.js
-// @updateURL https://update.greasyfork.org/scripts/504970/%E2%8F%B0JAVBUS%20larger%20thumbnails.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/504970/%E2%8F%B0JAV%20larger%20thumbnails.user.js
+// @updateURL https://update.greasyfork.org/scripts/504970/%E2%8F%B0JAV%20larger%20thumbnails.meta.js
 // ==/UserScript==
 
 (function () {
@@ -453,7 +454,8 @@
     async function getMagnet4JavDB(href, tagName, itemID, avid) {
         GM_addStyle(`#modal-div .pop-up-tag {display: grid;  grid-template-columns: repeat(2, 1fr);grid-auto-rows: minmax(100px, auto);
         grid-template-areas:"b b""c d";}/*.pop-up-tag .panel-block{grid-area: a;}*/.pop-up-tag .columns:nth-child(odd){grid-area: b;}
-        .pop-up-tag .columns:nth-child(even){grid-area: c;}.pop-up-tag nav{grid-area: d;}#tabs-container{max-height: 472px;overflow-x: hidden}`);
+        .pop-up-tag .columns:nth-child(even){grid-area: c;}.pop-up-tag nav{grid-area: d;}#tabs-container{max-height: 442px;overflow-x: hidden}
+        .panel > .panel-block,.review-items *{display: inline-block;}`);
         let doc = await fetch(href).then((response) => response.text());
         let $doc = $($.parseHTML(doc));
         let info = $(`<div class="pop-up-tag" name="${tagName}"></div>`);
@@ -473,8 +475,8 @@
                 const hou = arr[1];
                 let fanhao, url;
                 if (
-                    ['aed','ako','anb','apaa','apns','aquco','aqula','aran','atid','awd','dass','dvdms','ekdv','erofc','fbos','fjin','hkd','hoks','hunta','huntb','huntc','hhhvr','instc','jsop','lulu','kiwvr','ktra','mide','midv','omhd','pred','snis','sivr','sone','sqte','ssni','tttv','urvrsp','wanz'].includes(qian) ||
-                    (qian == 'vrkm' && hou > 167 && hou < 1000) || (qian == 'savr' && hou > 105) ||(qian == 'crvr' && hou > 239) ||(qian == 'mkmp' && hou > 389)
+                    ['aed','ako','anb','apaa','apns','aquco','aqula','aran','atid','awd','dass','dvdms','ekdv','erofc','fbos','fjin','hkd','hoks','hunta','huntb','huntc','hhhvr','instc','jsop','lulu','kiwvr','ktra','mide','midv','nima','omhd','pred','snis','sivr','sone','sqte','ssni','tttv','urvrsp'].includes(qian) ||
+                    (qian == 'vrkm' && hou > 167 && hou < 1000) || (qian == 'savr' && hou > 105) ||(qian == 'crvr' && hou > 239) ||(qian == 'mkmp' && hou > 389)||(qian == 'wanz' && hou > 261)
                 ) {
                     fanhao = `${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
@@ -484,7 +486,7 @@
                 } else if (['aege','akdl','bkynb','dandy','dldss','drpt','dvdes','fadss','fcdss','fsdss','fset','fsvss','ftht','ftk','ftkd','gar','havd','hbad','iene','ienf','ienfh','kmhr','kmhrs','mane','mfth','mist','mogi','moon','msfh','msfh','mtall','nhdta','nhdtb','nhvr','ntr','nyh','piyo','rct','rctd','setm','sdab','sdam','sdde','sdjs','sdmf','sdmm','sdmu','sdmua','sdnm','sdnt','sdth','senn','seven','sgki','shh','shn','silkc','sply','star','stars','start','stko','sun','suwk','svdvd','svgal','svmgm','sw','wawa','wo'].includes(qian)) {
                     fanhao = `1${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['wanz'].includes(qian)) {
+                } else if (['wanz'].includes(qian)||(qian == 'wanz' && hou < 262)) {
                     fanhao = `3${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['lol'].includes(qian)) {
@@ -492,6 +494,9 @@
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['gg','gvg'].includes(qian)) {
                     fanhao = `13${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
+                } else if (['mond'].includes(qian)) {
+                    fanhao = `18${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['dsvr'].includes(qian)) {
                     fanhao = `13${qian}0${hou}`;
@@ -505,7 +510,7 @@
                 } else if (['tpvr', 'kmvr', 'kbvr', 'averv'].includes(qian) ||(qian == 'vrkm' && hou < 168)||(qian == 'mkmp' && hou < 390)) {
                     fanhao = `84${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['abf','abp','abw','bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps'].includes(qian)) {
+                } else if (['abf','abp',/*'abw',*/'bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps'].includes(qian)) {
                     fanhao = `118${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['sgm'].includes(qian)) {
@@ -520,7 +525,7 @@
                 } else if (['mxgs'].includes(qian)) {
                     fanhao = `h_068${qian}0${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['fera', 'hone', 'ypaa'].includes(qian)) {
+                } else if (['fera', 'hone', 'toen','ypaa'].includes(qian)) {
                     fanhao = `h_086${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['ktra'].includes(qian)) {
@@ -532,7 +537,7 @@
                 } else if (['jukf', 'jutn'].includes(qian)) {
                     fanhao = `h_227${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['ambi', 'hdka', 'nacr'].includes(qian)) {
+                } else if (['ambi', 'emot','hdka', 'nacr'].includes(qian)) {
                     fanhao = `h_237${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['tama'].includes(qian)) {
@@ -550,7 +555,7 @@
                 } else if (['gigl'].includes(qian)) {
                     fanhao = `h_860${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['vrvr'].includes(qian)) {
+                } else if (['vrtm','vrvr'].includes(qian)) {
                     fanhao = `h_910${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['hzgd'].includes(qian)) {
@@ -589,6 +594,9 @@
                 } else if (['zmen','hzmen'].includes(qian)) {
                     fanhao = `h_1371${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
+                } else if (['enki'].includes(qian)) {
+                    fanhao = `h_1406${qian}00${hou}`;
+                    url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['fanh', 'instv'].includes(qian)) {
                     fanhao = `h_1472${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
@@ -601,20 +609,15 @@
                 } else if (['simm'].includes(qian)) {
                     fanhao = `345${qian}-${hou}`;
                     url = `https://image.mgstage.com/images/shiroutomanman/345${qian}/${hou}/cap_e_${i}_${fanhao}.jpg`;
-                } else if (['otim','onex'].includes(qian)) {
-                    switch (qian) {
-                        case 'otim':
-                            url = `https://image.mgstage.com/images/onetime/393${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
-                            break;
-                        case 'onex':
-                            url = `https://image.mgstage.com/images/onemore/013${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
-                            break;
-                        default:
-                            console.log(`Sorry, we are out of ${expr}.`);
-                    }
                 } else if (['anan'].includes(qian)) {
                     fanhao = `714${qian}00${hou}`;
                     url = `https://image.mgstage.com/images/shiroutoanan/${fanhao}/cap_e_${i}_${fanhao}.jpg`;
+                } else if (['onex'].includes(qian)) {
+                    url = `https://image.mgstage.com/images/onemore/013${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
+                } else if (['otim'].includes(qian)) {
+                    url = `https://image.mgstage.com/images/onetime/393${qian}/${hou}/cap_e_${i-1}_393${qian}-${hou}.jpg`;
+                } else if (['abw'].includes(qian)) {
+                    url = `https://www.prestige-av.com/images/corner/goods/prestige/${qian}/${hou}/cap_e_${i-1}_${qian}-${hou}.jpg`;
                 } else if (['nkmtndvaj'].includes(qian)) {
                     fanhao = `yr${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
