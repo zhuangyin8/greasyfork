@@ -2,7 +2,7 @@
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
 // @author           @zhuangyin8
-// @version          2024-10-05
+// @version          2024-10-06
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
