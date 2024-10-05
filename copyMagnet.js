@@ -102,6 +102,8 @@
 				"td:nth-child(5)",
 				"td:nth-child(2) a:last-child"
 			);
+			GM_addStyle(`/*sukebei*/
+	    	.group-container,.exo_wrapper{display:none !important;}`);
 			break;
 		case "u9a9":
 			copyMagnet(
@@ -112,6 +114,8 @@
 				"td:nth-child(5)",
 				"td:nth-child(2) a:last-child"
 			);
+			GM_addStyle(`/*u9a9*/
+	    	.container .ad{display:none !important;}`);
 			break;
 		case "btdig":
 			copyMagnet(
@@ -159,8 +163,7 @@
 	    .data-list .row {padding: 0; }
 	    /*btsow
 	
-	    /*u9a9*/
-	    .container .ad{display:none !important;}
+
 	    /*sukebei*/
 	    .group-container,.exo_wrapper{display:none !important;}`);
 })();
