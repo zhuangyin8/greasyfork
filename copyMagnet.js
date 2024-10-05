@@ -2,7 +2,7 @@
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
 // @author           @zhuangyin8
-// @version          2024.10.30
+// @version          2024.10.05
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -26,7 +26,7 @@
 	"use strict";
 	const addElement = (
 		tagName = `button`,
-		innerHTML = `点击复制第${index + 1}个磁力链接`,
+		innerHTML = `点击复制`,
 		options = {},
 		parentNode = document.body
 	) => {
@@ -71,7 +71,8 @@
 			);
 		});
 	};
-	switch (location.host.split(".")[0]) {
+	let host = location.host.split(".")[0];
+	switch (host) {
 		case "zhongzidi":
 			copyMagnet(
 				".row table",
@@ -121,10 +122,22 @@
 				".torrent_age",
 				".torrent_magnet"
 			);
-			document.querySelectorAll("div").forEach((e) => {
-				e.style = "";
-				e.classList.remove("style");
-			});
+			//document.querySelectorAll(".one_result *").forEach(e => {e.style="";e.classList.remove("style");});
+			GM_addStyle(`/*btdig*/
+			.one_result {display:inline-block;text-align: left;border: 1px dashed #32a1ce;line-height:1.4;padding:5px}
+			body > center > div > div:nth-child(1) {max-width:100vw !important;max-height:100vh !important;padding:0 !important;}
+			.torrent_excerpt,.torrent_excerpt + div {padding:0 !important;}
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid !important;grid-template-columns:repeat(2, 1fr);gap:0}
+			.torrent_magnet {background:#00a400;}
+			body > a,
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div:nth-child(odd),
+			body > center > div > div:nth-child(2),
+			body > center > div > div:nth-child(1) > div:nth-child(1),
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(5){display:none  !important;}
+			body > center > div > div:nth-child(1) > form {position:fixed;top:0;right:0;}
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(1),
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) {display:inline-block; margin: 10px 0;position:fixed;top:0px;left:20vw;}
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) > div > div,form{display:inline-block;margin:0 10px;}`);
 			break;
 		default:
 	}
@@ -136,31 +149,18 @@
 		.torrent_name {width: 980px !important;}
 		body > center > div {max-width: 1500px !important;}`);*/
 	GM_addStyle(`
-    .torrent-list > tbody > tr > td {white-space: normal !important;}
-    .tags-box { width: 100vw;position: fixed; top: 50px;}
-    .data-list{ width: 100vw;position: absolute;top: 200px;}
-    .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
-    .search,.search-container{}
-    form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
-    .container {width: 100vw;left: 360px;position: absolution;}
-    .data-list .row {padding: 0; }
-    /*btsow
-
-    /*u9a9*/
-    .container .ad{display:none !important;}
-    /*sukebei*/
-    .group-container,.exo_wrapper{display:none !important;}
-    /*btdig*/
-    .one_result {display:inline-block;text-align: left;border: 2px dashed #32a1ce;line-height:1.4;}
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid;grid-template-columns:repeat(2, 1fr);gap:5px}
-    .torrent_magnet {background:#00a400;}
-    body > a,
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div:nth-child(odd),
-    body > center > div > div:nth-child(2),
-    body > center > div > div:nth-child(1) > div:nth-child(1),
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(5){display:none;}
-    body > center > div > div:nth-child(1) > form {position:fixed;top:0;right:0;}
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(1),
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) {display:inline-block; margin: 10px 0;position:fixed;top:0px;left:20vw;background:red}
-    body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) > div > div,form{display:inline-block;margin:0 10px;}`);
+	    .torrent-list > tbody > tr > td {white-space: normal !important;}
+	    .tags-box { width: 100vw;position: fixed; top: 50px;}
+	    .data-list{ width: 100vw;position: absolute;top: 200px;}
+	    .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
+	    .search,.search-container{}
+	    form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
+	    .container {width: 100vw;left: 360px;position: absolution;}
+	    .data-list .row {padding: 0; }
+	    /*btsow
+	
+	    /*u9a9*/
+	    .container .ad{display:none !important;}
+	    /*sukebei*/
+	    .group-container,.exo_wrapper{display:none !important;}`);
 })();
