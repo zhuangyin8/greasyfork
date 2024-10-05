@@ -83,6 +83,8 @@
 				"tr h4 a"
 			);
 			break;
+			GM_addStyle(`/*zhongzidi*/
+	    	`);
 		case "btsow":
 			copyMagnet(
 				".data-list > .row:not(.hidden-xs)",
@@ -92,6 +94,8 @@
 				".date",
 				"a div:first-child"
 			);
+			GM_addStyle(`/*btsow*/
+	    	`);
 			break;
 		case "sukebei":
 			copyMagnet(
@@ -160,10 +164,5 @@
 	    .search,.search-container{}
 	    form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
 	    .container {width: 100vw;left: 360px;position: absolution;}
-	    .data-list .row {padding: 0; }
-	    /*btsow
-	
-
-	    /*sukebei*/
-	    .group-container,.exo_wrapper{display:none !important;}`);
+	    .data-list .row {padding: 0;}`);
 })();
