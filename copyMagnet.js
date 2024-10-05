@@ -135,7 +135,7 @@
 			.one_result {display:inline-block;text-align: left;border: 1px dashed #32a1ce;line-height:1.4;padding:5px}
 			body > center > div > div:nth-child(1) {max-width:100vw !important;max-height:100vh !important;padding:0 !important;}
 			.torrent_excerpt,.torrent_excerpt + div {padding:0 !important;}
-			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid !important;grid-template-columns:repeat(2, 1fr);gap:0}
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid !important;grid-template-columns:repeat(2, 1fr);grid-auto-columns: min-content;gap:0}
 			.torrent_magnet {background:#00a400;}
 			body > a,
 			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div:nth-child(odd),
