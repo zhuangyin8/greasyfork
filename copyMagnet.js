@@ -2,7 +2,7 @@
 // @name             磁力一键复制
 // @homepage         https://greasyfork.org/zh-CN/scripts/495796
 // @author           @zhuangyin8
-// @version          2024-10-06
+// @version          2024-10-08
 // @description      一键复制美化后的磁力
 // @license          MIT
 // @include          https://btsow.*/search/*
@@ -83,8 +83,7 @@
 				"tr h4 a"
 			);
 			break;
-			GM_addStyle(`/*zhongzidi*/
-	    	`);
+			GM_addStyle(`/*zhongzidi*/`);
 		case "btsow":
 			copyMagnet(
 				".data-list > .row:not(.hidden-xs)",
@@ -95,7 +94,11 @@
 				"a div:first-child"
 			);
 			GM_addStyle(`/*btsow*/
-	    	`);
+            .tags-box { width: 100vw;position: fixed; top: 50px;}
+            .data-list{ width: 100vw;position: absolute;top: 200px;}
+            .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
+            .search,.search-container{}
+            form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}`);
 			break;
 		case "sukebei":
 			copyMagnet(
@@ -107,7 +110,9 @@
 				"td:nth-child(2) a:last-child"
 			);
 			GM_addStyle(`/*sukebei*/
-	    	.group-container,.exo_wrapper{display:none !important;}`);
+	    	.group-container,.exo_wrapper{display:none !important;}
+            .torrent-list > tbody > tr > td {max-width:90vw;white-space: normal !important;}
+            .data-list .row {padding: 0;}`);
 			break;
 		case "u9a9":
 			copyMagnet(
@@ -132,10 +137,10 @@
 			);
 			//document.querySelectorAll(".one_result *").forEach(e => {e.style="";e.classList.remove("style");});
 			GM_addStyle(`/*btdig*/
-			.one_result {display:inline-block;text-align: left;border: 1px dashed #32a1ce;line-height:1.4;padding:5px}
+			.one_result {display:inline-block;text-align: left;border: 1px dashed #32a1ce;line-height:1.4;}
 			body > center > div > div:nth-child(1) {max-width:100vw !important;max-height:100vh !important;padding:0 !important;}
 			.torrent_excerpt,.torrent_excerpt + div {padding:0 !important;}
-			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid !important;grid-template-columns:repeat(2, 1fr);grid-auto-columns: min-content;gap:0}
+			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) {display:grid !important;grid-template-columns:repeat(2, 1fr);grid-auto-rows: min-content;gap:0}
 			.torrent_magnet {background:#00a400;}
 			body > a,
 			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div:nth-child(odd),
@@ -143,12 +148,11 @@
 			body > center > div > div:nth-child(1) > div:nth-child(1),
 			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(5){display:none  !important;}
 			body > center > div > div:nth-child(1) > form {position:fixed;top:0;right:0;}
-			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(1),
-			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) {display:inline-block; margin: 10px 0;position:fixed;top:0px;left:20vw;}
 			body > center > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) > div > div,form{display:inline-block;margin:0 10px;}`);
 			break;
 		default:
 	}
+    GM_addStyle(`.container {width: 100vw;left: 360px;position: absolution;}`);
 	/*GM_addStyle(`thead,.data-list .hidden-xs,tr .text-center,thead + tbody tr td:not(:nth-child(2)){ display: none !important;}
 		.input-group {width:100%}
 		.table-striped>tbody>tr:nth-of-type(odd) {background-color: rgb(213, 217, 237);}
@@ -156,13 +160,4 @@
 		#article {max-width: 120ex !important;}
 		.torrent_name {width: 980px !important;}
 		body > center > div {max-width: 1500px !important;}`);*/
-	GM_addStyle(`
-	    .torrent-list > tbody > tr > td {white-space: normal !important;}
-	    .tags-box { width: 100vw;position: fixed; top: 50px;}
-	    .data-list{ width: 100vw;position: absolute;top: 200px;}
-	    .hidden-xs:not(.tags-box,.text-right,.search,.search-container) { display: none !important;}
-	    .search,.search-container{}
-	    form .input-group{width: 100vw !important;top: 0 !important;left: 50px !important;position: fixed !important;z-index:99999;background:red}
-	    .container {width: 100vw;left: 360px;position: absolution;}
-	    .data-list .row {padding: 0;}`);
 })();
