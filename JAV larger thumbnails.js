@@ -3,7 +3,7 @@
 // @name:zh-CN   ⏰JAV 封面大图
 // @namespace    https://github.com/zhuangyin8
 // @homepage     https://greasyfork.org/zh-CN/scripts/504970-javbus-larger-thumbnails
-// @version      2024-10-03
+// @version      2024-10-12
 // @author       zhuangyin
 // @license      MIT
 // @description          replace thumbnails of javbus,javdb,javlibrary and avmoo with source images
@@ -510,7 +510,7 @@
                 } else if (['tpvr', 'kmvr', 'kbvr', 'averv'].includes(qian) ||(qian == 'vrkm' && hou < 168)||(qian == 'mkmp' && hou < 390)) {
                     fanhao = `84${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
-                } else if (['abf','abp',/*'abw',*/'bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps'].includes(qian)) {
+                } else if (['abf','abp',/*'abw',*/'aoi','bgn','docp','fir','gets','giro','gnab',/*'good',*/'har','jbs','kbi','mas','mct','npv','ppt','rdt','sga','tem','wps'].includes(qian)) {
                     fanhao = `118${qian}00${hou}`;
                     url = `https://pics.dmm.co.jp/digital/video/${fanhao}/${fanhao}jp-${i}.jpg`;
                 } else if (['sgm'].includes(qian)) {
